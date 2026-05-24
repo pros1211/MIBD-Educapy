@@ -23,7 +23,6 @@ db.connect((err) => {
 
 const PORT = 5000;
 app.post("/api/register", (req, res) => {
-  // 1. Tangkap SEMUA variabel dari React, termasuk jenjang & tingkat
   const { nama, email, password, alamat, jenjang, tingkat } = req.body;
 
   const queryPendidikan =
