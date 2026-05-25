@@ -7,7 +7,8 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import Login from "./pages/login";
+import Login from "./pages/Login";
+import Kelas from "./pages/Kelas";
 import Sidebar from "./components/sidebar";
 import MainPage from "./pages/MainPages";
 import Jadwal from "./pages/Jadwal";
@@ -41,6 +42,7 @@ function App() {
               <Route path="/" element={<Navigate to="/MainPage" replace />} />
               <Route path="/MainPage" element={<MainPage />} />
               <Route path="/jadwal" element={<Jadwal />} />
+              <Route path="/kelas" element={<Kelas />} />
             </Route>
           </Routes>
         </div>

@@ -62,7 +62,7 @@ export default function Sidebar() {
             {isExpanded && <span>jadwal</span>}
           </NavLink>
           <NavLink
-            to="/cari-kelas"
+            to="/kelas"
             className={({ isActive }) => getButtonClass(isActive)}
           >
             <School className="w-7 h-7 min-w-[28px]" />

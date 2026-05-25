@@ -92,6 +92,51 @@ app.post("/api/login", (req, res) => {
     }
   });
 });
+app.get("/api/guru", (req, res) => {
+  const query = `
+    SELECT 
+      u.Id_user AS id, 
+      u.nama, 
+      GROUP_CONCAT(mp.nama SEPARATOR ', ') AS matapelajaran
+    FROM user u
+    JOIN guru g ON u.Id_user = g.Id_guru
+    LEFT JOIN keahlian_guru k ON g.Id_guru = k.Id_guru
+    LEFT JOIN matapelajaran mp ON k.Id_mapel = mp.Id_mapel
+    WHERE u.role = 'guru'
+    GROUP BY u.Id_user, u.nama
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Gagal mengambil data guru:", err);
+      return res
+        .status(500)
+        .json({ error: "Gagal mengambil data dari server" });
+    }
+
+    res.status(200).json(results);
+  });
+});
+
+app.get("/api/jadwal/:id_guru", (req, res) => {
+  const idGuru = req.params.id_guru;
+  const query = `
+  SELECT
+    jadwal.hari_mengajar,
+    jadwal.jam_mulai,
+    jadwal.jam_selesai
+  FROM jadwal_kesediaan
+  JOIN jadwal ON jadwal.id_kesediaan = jadwal_kesediaan.id_kesediaan
+  WHERE jadwal_kesediaan.id_guru= ?
+  `;
+  db.query(query, [idGuru], (err, results) => {
+    if (err) {
+      console.error("gagal mengambil jadwal:", err);
+      return res.status(500).json({ error: "gagal mengambil data jadwal" });
+    }
+    res.status(200).json(results);
+  });
+});
 app.listen(PORT, () => {
   console.log(`server backend menyala di http://localhost:${PORT}`);
 });

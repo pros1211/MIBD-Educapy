@@ -43,7 +43,7 @@ export default function Register() {
       if (response.ok) {
         alert(data.message);
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userName", data.user.nama);
+        localStorage.setItem("userName", formData.nama);
         navigate("/MainPage");
       } else {
         alert("Pendaftaran gagal: " + data.error);
